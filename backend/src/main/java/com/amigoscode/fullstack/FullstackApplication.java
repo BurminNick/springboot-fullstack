@@ -14,7 +14,9 @@ import java.util.Random;
 public class FullstackApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(FullstackApplication.class, args);
+
     }
 
     @Bean
