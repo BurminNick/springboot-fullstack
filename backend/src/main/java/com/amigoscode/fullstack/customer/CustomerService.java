@@ -13,7 +13,7 @@ public class CustomerService {
 
     private final CustomerDAO customerDAO;
 
-    public CustomerService(@Qualifier("jdbc") CustomerDAO customerDAO) {
+    public CustomerService(@Qualifier("jpa") CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
 
@@ -36,8 +36,8 @@ public class CustomerService {
                 new Customer(
                 customerRegistrationRequest.name(),
                 email,
-                customerRegistrationRequest.age()
-        ));
+                customerRegistrationRequest.age(),
+                        customerRegistrationRequest.gender()));
     }
 
     public void deleteCustomerById(Integer id) {

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -21,10 +20,11 @@ class CustomerRowMapperTest {
         when(resultSet.getString("customer_name")).thenReturn("Test");
         when(resultSet.getString("customer_email")).thenReturn("test");
         when(resultSet.getInt("customer_age")).thenReturn(21);
+        when(resultSet.getString("gender")).thenReturn("MALE");
         //When
         Customer actual = customerRowMapper.mapRow(resultSet, 1);
         //Then
-        Customer expected = new Customer(1, "Test", "test", 21);
+        Customer expected = new Customer(1, "Test", "test", 21, Gender.MALE);
         assertThat(actual).isEqualTo(expected);
     }
 }

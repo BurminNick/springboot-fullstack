@@ -3,23 +3,18 @@ package com.amigoscode.fullstack.customer;
 import com.amigoscode.fullstack.exception.DuplicateResourceException;
 import com.amigoscode.fullstack.exception.RequestValidationException;
 import com.amigoscode.fullstack.exception.ResourceNotFound;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceTest {
@@ -46,7 +41,7 @@ class CustomerServiceTest {
     void itShouldGetCustomer() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Test", "test", 99);
+        Customer customer = new Customer(id, "Test", "test", 99, Gender.MALE);
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(customer));
         //When
         Customer actual = underTest.getCustomer(id);
@@ -70,7 +65,7 @@ class CustomerServiceTest {
         //Given
         String email = "test";
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Test", email, 23);
+                "Test", email, 23, Gender.MALE);
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(false);
 
         //When
@@ -92,7 +87,7 @@ class CustomerServiceTest {
         String email = "test";
         when(customerDAO.existsPersonWithEmail(email)).thenReturn(true);
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                "Test", email, 23);
+                "Test", email, 23, Gender.MALE);
         //When
         assertThatThrownBy(()->underTest.addCustomer(request)).
                 isInstanceOf(DuplicateResourceException.class).
@@ -129,7 +124,7 @@ class CustomerServiceTest {
     void itShouldUpdateCustomer() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Test", "test", 99);
+        Customer customer = new Customer(id, "Test", "test", 99, Gender.MALE);
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(customer));
         String newEmail = "foo";
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest("Foo", newEmail, 97);
@@ -149,7 +144,7 @@ class CustomerServiceTest {
     void itShouldThrowsWhenNoChanges() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Test", "test", 99);
+        Customer customer = new Customer(id, "Test", "test", 99, Gender.MALE);
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(customer));
         CustomerUpdateRequest updateRequest =
                 new CustomerUpdateRequest(customer.getName(), customer.getEmail(), customer.getAge());
@@ -165,7 +160,7 @@ class CustomerServiceTest {
     void itShouldThrowsWhenEmailTaken() {
         //Given
         int id = 1;
-        Customer customer = new Customer(id, "Test", "test", 99);
+        Customer customer = new Customer(id, "Test", "test", 99, Gender.MALE);
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(customer));
         String newEmail = "new email";
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(null, newEmail, null);

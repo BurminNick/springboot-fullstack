@@ -3,13 +3,11 @@ package com.amigoscode.fullstack.customer;
 import com.amigoscode.fullstack.AbstractTestcontainersUnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
 
@@ -30,8 +28,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 FAKER.internet().safeEmailAddress(),
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
 
         //When
@@ -48,8 +46,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
 
         Integer id = underTest.selectAllCustomers().stream().
@@ -93,8 +91,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         //When
         boolean actual = underTest.existsPersonWithEmail(email);
@@ -120,8 +118,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
                 filter(c -> c.getEmail().equals(email)).
@@ -152,8 +150,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
                 filter(c -> c.getEmail().equals(email)).
@@ -173,8 +171,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
                 filter(c -> c.getEmail().equals(email)).
@@ -205,8 +203,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
                 filter(c -> c.getEmail().equals(email)).
@@ -237,8 +235,8 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20
-        );
+                20,
+                Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
                 filter(c -> c.getEmail().equals(email)).

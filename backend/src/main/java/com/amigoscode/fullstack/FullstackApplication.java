@@ -2,6 +2,7 @@ package com.amigoscode.fullstack;
 
 import com.amigoscode.fullstack.customer.Customer;
 import com.amigoscode.fullstack.customer.CustomerRepository;
+import com.amigoscode.fullstack.customer.Gender;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,11 +24,11 @@ public class FullstackApplication {
         return args -> {
             var faker = new Faker();
             Random random = new Random();
-
+            int age = random.nextInt(16, 80);
             Customer customer = new Customer(
                     faker.name().fullName(),
                     faker.internet().emailAddress(),
-                    random.nextInt(16,80));
+                    age, Gender.MALE);
 
            customerRepository.save(customer);
         };

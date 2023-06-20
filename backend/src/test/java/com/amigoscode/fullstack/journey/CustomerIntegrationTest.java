@@ -3,6 +3,7 @@ package com.amigoscode.fullstack.journey;
 import com.amigoscode.fullstack.customer.Customer;
 import com.amigoscode.fullstack.customer.CustomerRegistrationRequest;
 import com.amigoscode.fullstack.customer.CustomerUpdateRequest;
+import com.amigoscode.fullstack.customer.Gender;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -28,10 +30,12 @@ public class CustomerIntegrationTest {
         Faker faker = new Faker();
         String name = faker.name().fullName();
         String email = faker.internet().safeEmailAddress();
-        int age = 23;
+        Random random = new Random();
+        int age = random.nextInt(16, 80);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         //create registration request
-        CustomerRegistrationRequest request = new CustomerRegistrationRequest(name, email, age);
+        CustomerRegistrationRequest request = new CustomerRegistrationRequest(name, email, age, gender);
 
         //send post request
         webTestClient.post()
@@ -56,7 +60,7 @@ public class CustomerIntegrationTest {
                 .getResponseBody();
 
         //make sure the customer is present
-        Customer expectedCustomer = new Customer(name, email, age);
+        Customer expectedCustomer = new Customer(name, email, age, gender);
         assertThat(allCustomers).usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
                 .contains(expectedCustomer);
 
@@ -83,10 +87,12 @@ public class CustomerIntegrationTest {
         Faker faker = new Faker();
         String name = faker.name().fullName();
         String email = faker.internet().safeEmailAddress();
-        int age = 23;
+        Random random = new Random();
+        int age = random.nextInt(16, 80);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         //create registration request
-        CustomerRegistrationRequest request = new CustomerRegistrationRequest(name, email, age);
+        CustomerRegistrationRequest request = new CustomerRegistrationRequest(name, email, age, gender);
 
         //send post request
         webTestClient.post()
@@ -136,10 +142,12 @@ public class CustomerIntegrationTest {
         Faker faker = new Faker();
         String name = faker.name().fullName();
         String email = faker.internet().safeEmailAddress();
-        int age = 23;
+        Random random = new Random();
+        int age = random.nextInt(16, 80);
+        Gender gender = age % 2 == 0 ? Gender.MALE : Gender.FEMALE;
 
         //create registration request
-        CustomerRegistrationRequest request = new CustomerRegistrationRequest(name, email, age);
+        CustomerRegistrationRequest request = new CustomerRegistrationRequest(name, email, age, gender);
 
         //send post request
         webTestClient.post()
@@ -193,7 +201,7 @@ public class CustomerIntegrationTest {
                 .returnResult()
                 .getResponseBody();
 
-        Customer expectedCustomer = new Customer(id, newName, email, age);
+        Customer expectedCustomer = new Customer(id, newName, email, age, gender);
 
         assertThat(updatedCustomer).isEqualTo(expectedCustomer);
     }
