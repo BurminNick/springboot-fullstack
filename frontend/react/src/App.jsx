@@ -1,26 +1,33 @@
-import UserProfile from "./UserProfile.jsx";
 import { Wrap, WrapItem, Spinner, Text } from '@chakra-ui/react'
 import SidebarWithHeader from "./components/shared/SideBar";
 import {useEffect, useState} from "react";
 import {getCustomers} from "./services/client.js";
 import CardWithImage from "./components/Card.jsx";
+import CreateCustomerDrawer from "./components/CreateCustomerDrawer.jsx";
+import {errorNotification} from "./services/notification.js";
 
 
 const App = () => {
 
     const [customers, setCustomers] = useState([]);
-
     const [loading, setLoading] = useState(false);
 
-    useEffect( () => {
+    const fetchCustomers = ()=>{
         setLoading(true);
         getCustomers().then(res => {
             setCustomers(res.data)
         }).catch(err => {
-            console.log(err)
+            errorNotification(
+                err.code,
+                err.response.data.message
+            )
         }).finally(()=>{
             setLoading(false);
         })
+    }
+
+    useEffect( () => {
+        fetchCustomers();
         }, [])
 
     if (loading){
@@ -40,7 +47,10 @@ const App = () => {
     if (customers.length <= 0) {
         return (
             <SidebarWithHeader>
-                <Text>
+                <CreateCustomerDrawer
+                    fetchCustomers = {fetchCustomers}
+                />
+                <Text mt={5}>
                     No customers
                 </Text>
             </SidebarWithHeader>
@@ -49,12 +59,17 @@ const App = () => {
 
     return (
         <SidebarWithHeader>
+            <CreateCustomerDrawer
+                fetchCustomers = {fetchCustomers}
+            />
             <Wrap justify={"center"} spacing={"30px"}>
             {customers.map((customer, index) => (
                 <WrapItem key={index}>
                     <CardWithImage
                         {...customer}
-                        imageNumber={index}/>
+                        imageNumber={index}
+                        fetchCustomers = {fetchCustomers}
+                    />
                 </WrapItem>
             ))}
             </Wrap>
