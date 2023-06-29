@@ -15,7 +15,7 @@
     },
     {
       "name": "fullstack",
-      "image": "burminnick/fullstack:29.06.2023.10.44.51",
+      "image": "burminnick/fullstack:29.06.2023.11.37.44",
       "essential": true,
       "memory": 512,
       "portMappings": [
