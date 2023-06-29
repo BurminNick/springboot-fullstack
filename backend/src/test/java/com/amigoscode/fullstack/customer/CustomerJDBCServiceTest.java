@@ -28,7 +28,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 FAKER.internet().safeEmailAddress(),
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
 
@@ -46,7 +46,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
 
@@ -91,7 +91,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         //When
@@ -118,7 +118,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
@@ -150,7 +150,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
@@ -171,7 +171,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
@@ -203,7 +203,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().
@@ -235,7 +235,7 @@ class CustomerJDBCServiceTest extends AbstractTestcontainersUnitTest {
         Customer customer = new Customer(
                 name,
                 email,
-                20,
+                "foobar", 20,
                 Gender.MALE);
         underTest.insertCustomer(customer);
         Integer id = underTest.selectAllCustomers().stream().

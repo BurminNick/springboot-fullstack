@@ -21,7 +21,7 @@ public class CustomerJDBCService implements CustomerDAO{
     public List<Customer> selectAllCustomers() {
 
         var sql = """
-                SELECT * FROM customers
+                SELECT id, customer_name, customer_email, password, customer_age, gender FROM customers
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper);
@@ -30,7 +30,7 @@ public class CustomerJDBCService implements CustomerDAO{
     @Override
     public Optional<Customer> selectCustomerById(Integer id) {
         var sql = """
-                SELECT * FROM customers WHERE id = ?
+                SELECT id, customer_name, customer_email, password, customer_age, gender FROM customers WHERE id = ?
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper, id).stream().findFirst();
@@ -39,11 +39,11 @@ public class CustomerJDBCService implements CustomerDAO{
     @Override
     public void insertCustomer(Customer customer){
         var sql = """
-                INSERT INTO customers(customer_name, customer_email, customer_age, gender)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO customers(customer_name, customer_email, password, customer_age, gender)
+                VALUES (?, ?, ?, ?, ?)
                 """;
         jdbcTemplate.update(
-                sql, customer.getName(), customer.getEmail(), customer.getAge(), customer.getGender().name());
+                sql, customer.getName(), customer.getEmail(), customer.getPassword(), customer.getAge(), customer.getGender().name());
     }
 
     @Override
@@ -86,5 +86,14 @@ public class CustomerJDBCService implements CustomerDAO{
             String sql = "UPDATE customers SET customer_email = ? WHERE id = ?";
             jdbcTemplate.update(sql, update.getEmail(), update.getId());
         }
+    }
+
+    @Override
+    public Optional<Customer> selectUserByEmail(String email) {
+        var sql = """
+                SELECT id, customer_name, customer_email, password, customer_age, gender FROM customers WHERE customer_email = ?
+                """;
+
+        return jdbcTemplate.query(sql, customerRowMapper, email).stream().findFirst();
     }
 }

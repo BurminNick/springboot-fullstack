@@ -50,6 +50,11 @@ public class CustomerJPAService implements CustomerDAO {
     }
 
     @Override
+    public Optional<Customer> selectUserByEmail(String email) {
+        return customerRepository.findCustomerByEmail(email);
+    }
+
+    @Override
     public void deleteCustomerById(Integer id) {
         customerRepository.deleteById(id);
     }

@@ -47,7 +47,7 @@ class CustomerJPAServiceTest {
     @Test
     void itShouldInsertCustomer() {
         //Given
-        Customer customer = new Customer(1, "Test", "test", 99, Gender.MALE);
+        Customer customer = new Customer(1, "Test", "test", "foobar", 99, Gender.MALE);
         //When
         underTest.insertCustomer(customer);
         //Then
@@ -77,7 +77,7 @@ class CustomerJPAServiceTest {
     @Test
     void itShouldUpdateCustomer() {
         //Given
-        Customer customer = new Customer(1, "Test", "test", 99, Gender.MALE);
+        Customer customer = new Customer(1, "Test", "test", "foobar", 99, Gender.MALE);
         //When
         underTest.updateCustomer(customer);
         //Then

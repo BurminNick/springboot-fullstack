@@ -1,5 +1,8 @@
 package com.amigoscode.fullstack.customer;
 
+import com.amigoscode.fullstack.jwt.JWTUtil;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,25 +11,30 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
+    private final JWTUtil jwtUtil;
+
+    public CustomerController(CustomerService customerService, JWTUtil jwtUtil) {
         this.customerService = customerService;
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping()
-    public List<Customer> allCustomers(){
+    public List<CustomerDTO> allCustomers(){
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomer(@PathVariable("id") Integer id){
+    public CustomerDTO getCustomer(@PathVariable("id") Integer id){
        return customerService.getCustomer(id);
     }
 
     @PostMapping()
-    public void addCustomer(@RequestBody CustomerRegistrationRequest request){
+    public ResponseEntity<?> addCustomer(@RequestBody CustomerRegistrationRequest request){
         customerService.addCustomer(request);
+        String jwtToken = jwtUtil.issueToken(request.email(), "ROLE_USER");
+        return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwtToken).build();
     }
 
     @PutMapping("/{id}")

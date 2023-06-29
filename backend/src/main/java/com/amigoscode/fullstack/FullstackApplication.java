@@ -8,8 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Random;
+import java.util.UUID;
 
 @SpringBootApplication
 public class FullstackApplication {
@@ -20,7 +22,9 @@ public class FullstackApplication {
      }
 
     @Bean
-    CommandLineRunner runner(CustomerRepository customerRepository){
+    CommandLineRunner runner(
+            CustomerRepository customerRepository,
+            PasswordEncoder passwordEncoder){
         return args -> {
             var faker = new Faker();
             Random random = new Random();
@@ -28,6 +32,7 @@ public class FullstackApplication {
             Customer customer = new Customer(
                     faker.name().fullName(),
                     faker.internet().emailAddress(),
+                    passwordEncoder.encode(UUID.randomUUID().toString()),
                     age, Gender.MALE);
 
            customerRepository.save(customer);
