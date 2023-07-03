@@ -46,8 +46,9 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                 initialValues={{
                     name: '',
                     email: '',
+                    password:'',
                     age: '',
-                    gender: '',
+                    gender: ''
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
@@ -55,6 +56,9 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                         .required('Required'),
                     email: Yup.string()
                         .email('Invalid email address')
+                        .required('Required'),
+                    password: Yup.string()
+                        .max(15, 'Must be 15 characters or less')
                         .required('Required'),
                     age: Yup.number()
                         .min(18, 'Must be 18 or more')
@@ -104,6 +108,13 @@ const CreateCustomerForm = ({fetchCustomers}) => {
                                 name="email"
                                 type="email"
                                 placeholder="jane@formik.com"
+                            />
+
+                            <MyTextInput
+                                label="Password"
+                                name="password"
+                                type="password"
+                                placeholder="password"
                             />
 
                             <MyTextInput

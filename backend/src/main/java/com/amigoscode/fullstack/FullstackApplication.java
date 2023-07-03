@@ -29,13 +29,15 @@ public class FullstackApplication {
             var faker = new Faker();
             Random random = new Random();
             int age = random.nextInt(16, 80);
+            String email = faker.internet().emailAddress();
             Customer customer = new Customer(
                     faker.name().fullName(),
-                    faker.internet().emailAddress(),
-                    passwordEncoder.encode(UUID.randomUUID().toString()),
+                    email,
+                    passwordEncoder.encode("password"),
                     age, Gender.MALE);
 
            customerRepository.save(customer);
+            System.out.println(email);
         };
     }
 }
