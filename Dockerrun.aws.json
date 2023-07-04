@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "react",
-      "image": "burminnick/react:03.07.2023.18.47.10",
+      "image": "burminnick/react:04.07.2023.06.53.03",
       "essential": true,
       "memory": 256,
       "portMappings": [
