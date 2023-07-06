@@ -2,32 +2,20 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "react",
-      "image": "burminnick/react:06.07.2023.11.26.02",
-      "essential": true,
-      "memory": 256,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 5173
-        }
-      ]
-    },
-    {
       "name": "fullstack",
       "image": "burminnick/fullstack:03.07.2023.18.16.42",
       "essential": true,
       "memory": 512,
       "portMappings": [
         {
-          "hostPort": 8080,
+          "hostPort": 80,
           "containerPort": 8080
         }
       ],
       "environment": [
         {
           "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:postgresql://awseb-e-jt54nw3mfh-stack-awsebrdsdatabase-xkpk2kbxtfrl.cswjeai9fheg.eu-west-1.rds.amazonaws.com:5432/postgres"
+          "value": "jdbc:postgresql://awseb-e-7vx3xhiyfp-stack-awsebrdsdatabase-xiytwyga6aul.cswjeai9fheg.eu-west-1.rds.amazonaws.com:5432/postgres"
         }
       ]
     }
