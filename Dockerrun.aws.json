@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "fullstack",
-      "image": "burminnick/fullstack:03.07.2023.18.16.42",
+      "image": "burminnick/fullstack:06.07.2023.12.43.37",
       "essential": true,
       "memory": 512,
       "portMappings": [
